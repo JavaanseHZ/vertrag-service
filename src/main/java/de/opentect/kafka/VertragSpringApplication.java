@@ -7,6 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class VertragSpringApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(PartnerSpringApplication.class, args);
+        SpringApplication.run(VertragSpringApplication.class, args);
     }
 }

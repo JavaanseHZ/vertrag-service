@@ -15,6 +15,7 @@ public class Vertrag {
 
 
     private String vertragUUID;
+    private Partner partner;
     private String sparte;
     private String beitrag;
     private Date lastChanged;
@@ -51,5 +52,12 @@ public class Vertrag {
         this.lastChanged = lastChanged;
     }
 
+    public Partner getPartner() {
+        return partner;
+    }
+
+    public void setPartner(Partner partner) {
+        this.partner = partner;
+    }
 }
 

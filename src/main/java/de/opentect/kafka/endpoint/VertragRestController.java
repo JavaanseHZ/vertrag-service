@@ -11,14 +11,14 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/partner")
+@RequestMapping("/vertrag")
 public class VertragRestController {
 
     private final VertragRepository vertragRepository;
 
     @Autowired
-    VertragRestController(VertragRepository partnerRepository) {
-        this.vertragRepository = partnerRepository;
+    VertragRestController(VertragRepository vertragRepository) {
+        this.vertragRepository = vertragRepository;
     }
 
     @GetMapping("/load")
@@ -30,7 +30,7 @@ public class VertragRestController {
 
     @DeleteMapping("/delete/{vertragUUID}")
     public void deleteVertrag(@PathVariable String vertragUUID) {
-        vertragRepository.delete(vertragRepository.findByPartnerUUID(vertragUUID).get());
+        vertragRepository.delete(vertragRepository.findByVertragUUID(vertragUUID).get());
     }
 
     @PostMapping("/save")

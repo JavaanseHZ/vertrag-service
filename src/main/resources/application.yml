@@ -3,6 +3,6 @@ server:
 
 kafka:
     bootstrap:
-        address: broker:9092
+        address: localhost:19092
     message:
         topic: vertragGespeichert

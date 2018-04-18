@@ -1,7 +1,7 @@
 package de.opentect.kafka.endpoint;
 
 import de.opentect.kafka.model.Vertrag;
-import de.opentect.kafka.producer.VertragKafkaSender;
+import de.opentect.kafka.producer.VertragKafkaProducer;
 import de.opentect.kafka.repository.VertragRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -23,7 +23,7 @@ public class VertragRestController {
     }
 
     @Autowired
-    VertragKafkaSender vertragKafkaSender;
+    private VertragKafkaProducer vertragKafkaProducer;
 
     @GetMapping("/load")
     @ResponseBody
@@ -44,7 +44,7 @@ public class VertragRestController {
             vertrag.setVertragUUID(UUID.randomUUID().toString());
         }
         vertragRepository.save(vertrag);
-        vertragKafkaSender.sendEvent(vertrag.getVertragUUID(), vertrag);
+        vertragKafkaProducer.sendEvent(vertrag.getVertragUUID(), vertrag);
         return vertrag;
     }
 

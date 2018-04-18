@@ -13,7 +13,6 @@ public class Vertrag {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-
     private String vertragUUID;
     private Partner partner;
     private String sparte;

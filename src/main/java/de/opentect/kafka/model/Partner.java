@@ -1,13 +1,22 @@
 package de.opentect.kafka.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Date;
 
-public class Partner {
+@Entity
+public class Partner implements Serializable{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
     private String partnerUUID;
     private String firstName;
     private String lastName;
-    private Date lastChanged;
 
     public String getPartnerUUID() {
         return partnerUUID;
@@ -31,14 +40,6 @@ public class Partner {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public Date getLastChanged() {
-        return lastChanged;
-    }
-
-    public void setLastChanged(Date lastChanged) {
-        this.lastChanged = lastChanged;
     }
 
 

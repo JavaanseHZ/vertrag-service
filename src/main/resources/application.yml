@@ -1,0 +1,8 @@
+server:
+    port: 8080
+
+kafka:
+    bootstrap:
+        address: broker:9092
+    message:
+        topic: vertragGespeichert

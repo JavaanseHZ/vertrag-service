@@ -1,2 +1,10 @@
 server:
     port: 8080
+
+kafka:
+    bootstrap:
+        address: localhost:29092
+    message:
+        topic: partnerSaved
+    group:
+        id: vertragGroup

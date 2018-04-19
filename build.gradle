@@ -19,6 +19,8 @@ bootJar {
 
 repositories {
     mavenCentral()
+    jcenter()
+    maven{ url = "http://packages.confluent.io/maven/"}
 }
 
 sourceCompatibility = 1.8
@@ -29,5 +31,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('com.h2database:h2')
     compile('org.springframework.kafka:spring-kafka')
+    compile('org.apache.avro:avro:1.8.2')
+    compile('io.confluent:kafka-avro-serializer:4.1.0')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }

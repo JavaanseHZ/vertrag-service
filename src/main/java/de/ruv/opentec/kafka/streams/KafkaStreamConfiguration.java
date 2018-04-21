@@ -59,6 +59,11 @@ public class KafkaStreamConfiguration {
 		props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, GenericAvroSerde.class);
 		props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
 		props.put(StreamsConfig.DEFAULT_TIMESTAMP_EXTRACTOR_CLASS_CONFIG, WallclockTimestampExtractor.class.getName());
+		props.put("consumer.interceptor.classes",
+				"io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor");
+		props.put("producer.interceptor.classes",
+				"io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor");
+
 		return new StreamsConfig(props);
 	}
 

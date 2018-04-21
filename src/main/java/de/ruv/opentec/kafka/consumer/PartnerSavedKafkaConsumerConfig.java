@@ -45,9 +45,8 @@ public class PartnerSavedKafkaConsumerConfig {
     }
 
     @Bean
-    @ConditionalOnMissingBean(name = "kafkaListenerContainerFactory")
     public ConcurrentKafkaListenerContainerFactory<Long, Partner>
-    kafkaListenerContainerFactory() {
+    partnerSavedKafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<Long, Partner> factory
                 = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(partnerSavedConsumerFactory());

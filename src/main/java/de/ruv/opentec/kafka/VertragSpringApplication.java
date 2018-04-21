@@ -6,10 +6,13 @@ import de.ruv.opentec.kafka.repository.VertragRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration;
+import org.springframework.kafka.annotation.EnableKafka;
 
 import javax.annotation.PostConstruct;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = KafkaAutoConfiguration.class)
+@EnableKafka
 public class VertragSpringApplication {
 
     @Autowired

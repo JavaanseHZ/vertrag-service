@@ -15,7 +15,7 @@ public class PartnerSavedKafkaConsumer {
     @Autowired
     private VertragRepository vertragRepository;
 
-    @KafkaListener(topics = "${kafka.message.topic.saved}")
+    @KafkaListener(topics = "${kafka.message.topic.saved}", containerFactory = "partnerSavedKafkaListenerContainerFactory")
     public void receive(ConsumerRecord<Long, Partner> consumerRecord) {
         Partner partner = consumerRecord.value();
         vertragRepository.findAll().forEach(e -> {

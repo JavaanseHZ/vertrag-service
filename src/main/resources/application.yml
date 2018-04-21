@@ -13,5 +13,7 @@ kafka:
         topic:
             saved: partnerSaved
             deleted: partnerDeleted
+            vertrag:
+                saved: quickstart-jdbc-test
     group:
         id: vertragGroup

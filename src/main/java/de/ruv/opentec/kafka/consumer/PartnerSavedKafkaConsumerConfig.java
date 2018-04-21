@@ -1,9 +1,6 @@
 package de.ruv.opentec.kafka.consumer;
 
-import io.confluent.kafka.schemaregistry.client.CachedSchemaRegistryClient;
-import io.confluent.kafka.schemaregistry.client.SchemaRegistryClient;
-import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
-import io.confluent.kafka.serializers.KafkaAvroDeserializer;
+import de.ruv.opentec.kafka.model.Partner;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.LongDeserializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,12 +11,13 @@ import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-public class PartnerDeletedAvroKafkaConsumerConfig {
+public class PartnerSavedKafkaConsumerConfig {
 
     @Value(value = "${kafka.bootstrap.address}")
     private String bootstrapAddress;
@@ -27,11 +25,8 @@ public class PartnerDeletedAvroKafkaConsumerConfig {
     @Value(value = "${kafka.group.id}")
     private String groupId;
 
-    @Value(value = "${kafka.schemaregistry.address}")
-    private String registryAddress;
-
     @Bean
-    public ConsumerFactory<Long, Object> partnerDeletedConsumerFactory() {
+    public ConsumerFactory<Long, Partner> partnerSavedConsumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(
                 ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,
@@ -44,21 +39,18 @@ public class PartnerDeletedAvroKafkaConsumerConfig {
                 LongDeserializer.class);
         props.put(
                 ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
-                KafkaAvroDeserializer.class);
-        props.put(AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, registryAddress);
-
-        SchemaRegistryClient client = new CachedSchemaRegistryClient(registryAddress, 10);
-
+                JsonDeserializer.class);
         return new DefaultKafkaConsumerFactory<>(props, new LongDeserializer(),
-                new KafkaAvroDeserializer(client));
+                new JsonDeserializer<>(Partner.class));
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<Long, Object>
-    partnerDeletedKafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<Long, Object> factory
+    @ConditionalOnMissingBean(name = "kafkaListenerContainerFactory")
+    public ConcurrentKafkaListenerContainerFactory<Long, Partner>
+    kafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<Long, Partner> factory
                 = new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(partnerDeletedConsumerFactory());
+        factory.setConsumerFactory(partnerSavedConsumerFactory());
         return factory;
     }
 

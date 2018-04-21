@@ -15,7 +15,7 @@ public class PartnerDeletedAvroKafkaConsumer {
     @Autowired
     private VertragRepository vertragRepository;
 
-    @KafkaListener(topics = "${kafka.message.topic.deleted}")
+    @KafkaListener(topics = "${kafka.message.topic.deleted}", containerFactory = "partnerDeletedKafkaListenerContainerFactory")
     public void receiveDeleted(GenericRecord genericRecord) {
 
         long id = (Long) genericRecord.get("id");

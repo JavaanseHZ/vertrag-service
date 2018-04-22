@@ -13,6 +13,29 @@ docker run -d \
     -e KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1 \
     confluentinc/cp-kafka:4.1.0
 
+docker run \
+  --net=host \
+  --rm confluentinc/cp-kafka:4.1.0 \
+  kafka-topics --create --topic foo --partitions 1 --replication-factor 1 --if-not-exists --zookeeper localhost:32181
+
+docker run \
+  --net=host \
+  --rm \
+  confluentinc/cp-kafka:4.1.0 \
+  kafka-topics --describe --topic foo --zookeeper localhost:32181
+
+docker run \
+  --net=host \
+  --rm \
+  confluentinc/cp-kafka:4.1.0 \
+  bash -c "seq 42 | kafka-console-producer --request-required-acks 1 --broker-list localhost:29092 --topic foo && echo 'Produced 42 messages.'"
+
+docker run \
+  --net=host \
+  --rm \
+  confluentinc/cp-kafka:4.1.0 \
+  kafka-console-consumer --bootstrap-server localhost:29092 --topic foo --from-beginning --max-messages 42
+
 docker run -d \
   --net=host \
   --name=schema-registry \
@@ -108,7 +131,6 @@ CREATE TABLE IF NOT EXISTS test (
 INSERT INTO test (sparte, betrag, partnerid, vorname, nachname) VALUES ('Firmen', 120.2, 4, 'Harry', 'Hirsch');
 INSERT INTO test (sparte, betrag, partnerid, vorname, nachname) VALUES ('Kranken', 433.14, 5, 'Marko', 'Marin');
 
-
 exit;
 
 export CONNECT_HOST=localhost
@@ -125,4 +147,3 @@ docker run \
   --rm \
   confluentinc/cp-kafka:4.1.0 \
   kafka-topics --list --zookeeper localhost:32181
-

@@ -71,6 +71,12 @@ docker run -d \
   -e KAFKA_REST_HOST_NAME=kafka-rest \
   confluentinc/cp-kafka-rest:4.1.0
 
+mkdir /tmp/quickstart
+mkdir /tmp/quickstart/file
+mkdir /tmp/quickstart/jars
+chmod -R 777 /tmp/quickstart
+cp ~/dev/mysql-connector-java-5.1.39-bin.jar /tmp/quickstart/jars/
+
 docker run -d \
   --name=kafka-connect-avro \
   --net=host \

@@ -56,7 +56,7 @@ public class VertragSavedConnectKafkaConsumerConfig {
 
     @Bean
     public ConcurrentKafkaListenerContainerFactory<Object, Object>
-    pvertragSavedKafkaListenerContainerFactory() {
+    vertragSavedKafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<Object, Object> factory
                 = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(vertragSavedConsumerFactory());

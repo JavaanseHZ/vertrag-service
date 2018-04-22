@@ -16,7 +16,7 @@ public class VertragSavedConnectKafkaConsumer {
     @Autowired
     private VertragRepository vertragRepository;
 
-    @KafkaListener(topics = "${kafka.message.topic.vertrag.saved}", containerFactory = "partnerDeletedKafkaListenerContainerFactory")
+    @KafkaListener(topics = "${kafka.message.topic.vertrag.saved}", containerFactory = "vertragSavedKafkaListenerContainerFactory")
     public void receiveDeleted(GenericRecord genericRecord) {
         long id = (Long) genericRecord.get("id");
         String sparte = ((Utf8) genericRecord.get("sparte")).toString();

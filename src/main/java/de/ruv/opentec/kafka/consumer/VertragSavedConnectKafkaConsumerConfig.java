@@ -29,7 +29,7 @@ public class VertragSavedConnectKafkaConsumerConfig {
     private String registryAddress;
 
     @Bean
-    public ConsumerFactory<Object, Object> partnerDeletedConsumerFactory() {
+    public ConsumerFactory<Object, Object> vertragSavedConsumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(
                 ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,
@@ -56,10 +56,10 @@ public class VertragSavedConnectKafkaConsumerConfig {
 
     @Bean
     public ConcurrentKafkaListenerContainerFactory<Object, Object>
-    partnerDeletedKafkaListenerContainerFactory() {
+    pvertragSavedKafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<Object, Object> factory
                 = new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(partnerDeletedConsumerFactory());
+        factory.setConsumerFactory(vertragSavedConsumerFactory());
         return factory;
     }
 

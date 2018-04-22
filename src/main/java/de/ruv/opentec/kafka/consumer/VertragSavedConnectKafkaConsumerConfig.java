@@ -45,7 +45,7 @@ public class VertragSavedConnectKafkaConsumerConfig {
                 KafkaAvroDeserializer.class);
         props.put(AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, registryAddress);
 
-        props.put("consumer.interceptor.classes",
+        props.put("interceptor.classes",
                 "io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor");
 
         SchemaRegistryClient client = new CachedSchemaRegistryClient(registryAddress, 10);

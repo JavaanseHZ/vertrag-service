@@ -40,7 +40,7 @@ public class PartnerSavedKafkaConsumerConfig {
         props.put(
                 ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
                 JsonDeserializer.class);
-        props.put("consumer.interceptor.classes",
+        props.put("interceptor.classes",
                 "io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor");
 
         return new DefaultKafkaConsumerFactory<>(props, new LongDeserializer(),

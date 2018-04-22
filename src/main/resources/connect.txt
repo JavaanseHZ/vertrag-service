@@ -165,4 +165,6 @@ docker run --net=host \
 	   -e "PROXY=true" \
            landoop/kafka-topics-ui
 
+https://github.com/Landoop/fast-data-dev
+
 docker run --rm --net=host -e ADV_HOST=<IP> landoop/fast-data-dev

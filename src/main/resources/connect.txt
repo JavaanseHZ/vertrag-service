@@ -63,21 +63,6 @@ docker run \
   kafka-topics --create --topic quickstart-avro-status --partitions 1 --replication-factor 1 --if-not-exists --zookeeper localhost:32181
 
 docker run -d \
-  --net=host \
-  --name=kafka-rest \
-  -e KAFKA_REST_ZOOKEEPER_CONNECT=localhost:32181 \
-  -e KAFKA_REST_LISTENERS=http://localhost:8081 \
-  -e KAFKA_REST_SCHEMA_REGISTRY_URL=http://localhost:8081 \
-  -e KAFKA_REST_HOST_NAME=kafka-rest \
-  confluentinc/cp-kafka-rest:4.1.0
-
-mkdir /tmp/quickstart
-mkdir /tmp/quickstart/file
-mkdir /tmp/quickstart/jars
-chmod -R 777 /tmp/quickstart
-cp ~/dev/mysql-connector-java-5.1.39-bin.jar /tmp/quickstart/jars/
-
-docker run -d \
   --name=kafka-connect-avro \
   --net=host \
   -e CONNECT_BOOTSTRAP_SERVERS=localhost:29092 \
@@ -153,3 +138,23 @@ docker run \
   --rm \
   confluentinc/cp-kafka:4.1.0 \
   kafka-topics --list --zookeeper localhost:32181
+
+docker run -d \
+  --net=host \
+  --name=kafka-rest \
+  -e KAFKA_REST_ZOOKEEPER_CONNECT=localhost:32181 \
+  -e KAFKA_REST_LISTENERS=http://localhost:8082 \
+  -e KAFKA_REST_SCHEMA_REGISTRY_URL=http://localhost:8081 \
+  -e KAFKA_REST_HOST_NAME=kafka-rest \
+  confluentinc/cp-kafka-rest:4.1.0
+
+docker run -d \
+  --net=host \
+  --name=control-center \
+  --ulimit nofile=16384:16384 \
+  -e CONTROL_CENTER_ZOOKEEPER_CONNECT=localhost:32181 \
+  -e CONTROL_CENTER_BOOTSTRAP_SERVERS=localhost:29092 \
+  -e CONTROL_CENTER_REPLICATION_FACTOR=1 \
+  -e CONTROL_CENTER_CONNECT_CLUSTER=http://localhost:28082 \
+  -v /mnt/control-center/data:/var/lib/confluent-control-center \
+  confluentinc/cp-enterprise-control-center:4.1.0

@@ -108,7 +108,6 @@ CREATE TABLE IF NOT EXISTS test (
 INSERT INTO test (sparte, betrag, partnerid, vorname, nachname) VALUES ('Firmen', 120.2, 4, 'Harry', 'Hirsch');
 INSERT INTO test (sparte, betrag, partnerid, vorname, nachname) VALUES ('Kranken', 433.14, 5, 'Marko', 'Marin');
 
-
 exit;
 
 export CONNECT_HOST=localhost

@@ -37,8 +37,8 @@ public class VertragSpringApplication {
         andi.setVorname("Andi");
         andi.setNachname("Moeller");
         Vertrag unfall = new Vertrag();
-        unfall.setId(1);
-        unfall.setPartner(uwe);
+        unfall.setId(2);
+        unfall.setPartner(andi);
         unfall.setSparte("Unfall");
         unfall.setBeitrag(16.11);
         vertragRepository.save(unfall);
@@ -48,7 +48,7 @@ public class VertragSpringApplication {
         tony.setVorname("Tony");
         tony.setNachname("Yeboah");
         Vertrag kranken = new Vertrag();
-        kranken.setId(1);
+        kranken.setId(3);
         kranken.setPartner(tony);
         kranken.setSparte("Kranken");
         kranken.setBeitrag(22.35);

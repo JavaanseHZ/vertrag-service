@@ -18,8 +18,6 @@ public class VertragSavedConnectKafkaConsumer {
 
     @KafkaListener(topics = "${kafka.message.topic.vertrag.saved}", containerFactory = "partnerDeletedKafkaListenerContainerFactory")
     public void receiveDeleted(GenericRecord genericRecord) {
-        //{"id": 3, "sparte": "Firmen", "betrag": 120.2, "partnerid": 4, "vorname": "Harry", "nachname": "Hirsch", "modified": 1524298803000}
-        System.out.print("test");
         long id = (Long) genericRecord.get("id");
         String sparte = ((Utf8) genericRecord.get("sparte")).toString();
         double betrag = (Double) genericRecord.get("betrag");

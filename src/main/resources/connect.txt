@@ -158,3 +158,11 @@ docker run -d \
   -e CONTROL_CENTER_CONNECT_CLUSTER=http://localhost:28082 \
   -v /mnt/control-center/data:/var/lib/confluent-control-center \
   confluentinc/cp-enterprise-control-center:4.1.0
+
+docker run --net=host \
+  	   --name=topics-ui \
+           -e "KAFKA_REST_PROXY_URL=http://kafka-rest:8082" \
+	   -e "PROXY=true" \
+           landoop/kafka-topics-ui
+
+docker run --rm --net=host -e ADV_HOST=<IP> landoop/fast-data-dev

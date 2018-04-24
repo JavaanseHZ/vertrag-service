@@ -7,4 +7,4 @@ kafka:
     message:
         topic: partnerSaved
     group:
-        id: vertragGroup
+        id: vertragGroup-2

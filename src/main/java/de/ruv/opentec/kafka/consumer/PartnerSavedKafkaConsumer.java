@@ -7,25 +7,22 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PartnerSavedKafkaConsumer {
 
-    @Value("${kafka.message.topic}")
-    private String topic;
-
     @Autowired
     private VertragRepository vertragRepository;
 
     @KafkaListener(topics = "${kafka.message.topic}")
-    public void receive(ConsumerRecord<Long, Partner> consumerRecord) {
+    public void receive(ConsumerRecord<Long, Partner> consumerRecord, Acknowledgment ack) {
         Partner partner = consumerRecord.value();
-        vertragRepository.findAll().forEach(e -> {
-            if (e.getPartner().getId() == consumerRecord.key()) {
-                e.setPartner(partner);
-                vertragRepository.save(e);
-            }
+        vertragRepository.findById(consumerRecord.key()).ifPresent(v -> {
+            v.setPartner(partner);
+            vertragRepository.save(v);
+            ack.acknowledge();
         });
     }
 }
